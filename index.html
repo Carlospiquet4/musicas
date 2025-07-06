@@ -411,10 +411,26 @@
     </div>
 
     <script>
+        // Playlist estática para GitHub Pages
+        const staticPlaylist = [
+            { title: 'Apenas uma Palavra', artist: 'Carlos & Iara', url: 'musicas/Apenas uma Palavra.mp3', duration: '0:00' },
+            { title: 'Aquilo que Fica', artist: 'Carlos & Iara', url: 'musicas/Aquilo que Fica.mp3', duration: '0:00' },
+            { title: 'Ela apenas Dorme', artist: 'Carlos & Iara', url: 'musicas/Ela apenas Dorme.mp3', duration: '0:00' },
+            { title: 'Luta do Coração', artist: 'Carlos & Iara', url: 'musicas/Luta do Coração.mp3', duration: '0:00' },
+            { title: 'Majestade e Glória', artist: 'Carlos & Iara', url: 'musicas/Majestade e Glória.mp3', duration: '0:00' },
+            { title: 'Mar de Fé', artist: 'Carlos & Iara', url: 'musicas/Mar de Fé.mp3', duration: '0:00' },
+            { title: 'Nas Profundezas, Ele Está Comigo', artist: 'Carlos & Iara', url: 'musicas/Nas Profundezas, Ele Está Comigo.mp3', duration: '0:00' },
+            { title: 'O toque de Fé', artist: 'Carlos & Iara', url: 'musicas/O toque de Fé.mp3', duration: '0:00' },
+            { title: 'O Verbo Vivo', artist: 'Carlos & Iara', url: 'musicas/O Verbo Vivo.mp3', duration: '0:00' },
+            { title: 'Para ir Mais Longe', artist: 'Carlos & Iara', url: 'musicas/Para ir Mais Longe.mp3', duration: '0:00' },
+            { title: 'Que Deus é Esse', artist: 'Carlos & Iara', url: 'musicas/Que Deus é Esse.mp3', duration: '0:00' },
+            { title: 'Refúgio e Fortaleza', artist: 'Carlos & Iara', url: 'musicas/Refúgio e Fortaleza.mp3', duration: '0:00' },
+        ];
+
         class MusicPlayer {
             constructor() {
                 this.audioPlayer = document.getElementById('audioPlayer');
-                this.playlist = [];
+                this.playlist = staticPlaylist;
                 this.currentSongIndex = 0;
                 this.isPlaying = false;
                 this.isShuffling = false;
@@ -426,19 +442,9 @@
                 this.initializeElements();
                 this.setupEventListeners();
                 this.createVisualizer();
-                this.fetchPlaylist();
-            }
-
-            async fetchPlaylist() {
-                try {
-                    const res = await fetch('/playlist');
-                    this.playlist = await res.json();
-                    this.renderPlaylist();
-                    if (this.playlist.length > 0) {
-                        this.loadSong(0);
-                    }
-                } catch (e) {
-                    this.currentSongEl.textContent = 'Erro ao carregar playlist.';
+                this.renderPlaylist();
+                if (this.playlist.length > 0) {
+                    this.loadSong(0);
                 }
             }
 
@@ -533,13 +539,13 @@
                 this.songListEl.appendChild(songItem);
             }
 
-            async renderPlaylist() {
+            renderPlaylist() {
                 this.songListEl.innerHTML = '';
                 for (let idx = 0; idx < this.playlist.length; idx++) {
                     const song = this.playlist[idx];
                     // Se ainda não tem duração, tenta buscar
                     if (song.duration === '0:00') {
-                        await this.fetchDuration(song, idx);
+                        this.fetchDuration(song, idx);
                     }
                     this.addSongToList(song, idx);
                 }

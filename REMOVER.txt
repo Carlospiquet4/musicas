@@ -1,0 +1,4 @@
+# Remover arquivos de backend antes do push final
+app.py
+requirements.txt
+musicas/leia.txt
