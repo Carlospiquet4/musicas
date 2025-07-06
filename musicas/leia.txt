@@ -1,0 +1,2 @@
+# Coloque seus arquivos de música (mp3, wav, ogg) nesta pasta.
+# Eles aparecerão automaticamente na playlist do site.
